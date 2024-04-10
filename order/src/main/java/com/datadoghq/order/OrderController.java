@@ -28,6 +28,6 @@ public class OrderController {
         return new Order(total);
     }
 
-    record Order(int count) {
+    public record Order(int count) {
     }
 }

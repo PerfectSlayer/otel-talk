@@ -1,5 +1,9 @@
 package com.datadoghq;
 
+import static io.opentelemetry.semconv.incubating.DeploymentIncubatingAttributes.DEPLOYMENT_ENVIRONMENT;
+import static io.opentelemetry.semconv.incubating.ServiceIncubatingAttributes.SERVICE_NAME;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -7,23 +11,17 @@ import com.sun.net.httpserver.HttpServer;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
-import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Scope;
 import io.opentelemetry.context.propagation.TextMapGetter;
 import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
 import io.opentelemetry.sdk.OpenTelemetrySdk;
 import io.opentelemetry.sdk.resources.Resource;
 import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
-import io.opentelemetry.semconv.resource.attributes.ResourceAttributes;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.util.logging.Logger;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class App {
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
@@ -46,8 +44,8 @@ public class App {
         //region Create resource
         Resource resource = Resource.getDefault().merge(
                 Resource.create(Attributes.of(
-                        ResourceAttributes.SERVICE_NAME, "storage",
-                        ResourceAttributes.DEPLOYMENT_ENVIRONMENT, "otel-demo"
+                        SERVICE_NAME, "storage",
+                        DEPLOYMENT_ENVIRONMENT, "otel-demo"
                 ))
         );
         //endregion
