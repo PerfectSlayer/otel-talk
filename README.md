@@ -1,5 +1,9 @@
 ### How to instrument your Java applications using OpenTemetry -- Devoxx FR edition
 
+### You missed it?
+
+You can find [the slides of the presentation on Speaker Deck](https://speakerdeck.com/perfectslayer/instrumentez-vos-applications-java-avec-opentelemetry).
+
 #### To run the Datadog agent as OTel collector
 
 Ensure to export `DD_API_KEY` then use the provided script:
